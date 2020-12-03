@@ -6,24 +6,30 @@ function App() {
     lName: "",
     email: ""
   });
-
+  const [contact1, setContact1] = useState("");
   function handleChange(event) {
-    const [value, name] = event.target;
+    const { value, name } = event.target;
     setContact((preValue) => {
       if (name === "fName") {
         return { fName: value, lName: preValue.lName, email: preValue.email };
       } else if (name === "lName") {
         return { fName: preValue.fName, lName: value, email: preValue.email };
+      } else if (name === "email") {
+        return { fName: preValue.fName, lName: preValue.lName, email: value };
       }
     });
+  }
+
+  function showSubmit() {
+    setContact1(contact);
   }
 
   return (
     <div className="container">
       <h1>
-        Hello {contact.fName} {contact.lName}
+        Hello {contact1.fName} {contact1.lName}
       </h1>
-      <p>{contact.email}</p>
+      <p>{contact1.email}</p>
       <form>
         <input
           onChange={handleChange}
@@ -43,7 +49,7 @@ function App() {
           placeholder="Email"
           value={contact.email}
         />
-        <button>Submit</button>
+        <button onClick={showSubmit}>Submit</button>
       </form>
     </div>
   );
